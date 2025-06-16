@@ -1,6 +1,17 @@
+import 'dart:async';
+
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
+import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+
+import 'auth/sign_in_screen.dart';
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  static Route get route => MaterialPageRoute(
+        builder: (context) => const SplashScreen(),
+      );
   const SplashScreen({super.key});
 
   @override
@@ -8,52 +19,67 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  late final StreamSubscription<firebase.User?> listener;
+
   @override
   void initState() {
     super.initState();
+    _handleAuthenticatedState();
+  }
 
-    // Simulate loading and then navigate to login
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(
-          context, '/login');
+  Future<void> _handleAuthenticatedState() async {
+    final auth = firebase.FirebaseAuth.instance;
+    if (!mounted) {
+      return;
+    }
+    FirebaseFunctions functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+    listener = auth.authStateChanges().listen((user) async {
+      if (user != null) {
+
+        // get Stream user token
+        final callable = functions
+            .httpsCallable('ext-auth-chat-getStreamUserToken')
+            .call();
+
+        final results = await Future.wait([
+          callable,
+          // delay to show loading indicator
+          Future.delayed(const Duration(milliseconds: 700)),
+        ]);
+
+        if (!mounted) return;
+        // connect Stream user
+        final client = StreamChatCore.of(context).client;
+        await client.connectUser(
+          User(id: user.uid),
+          results[0].data,
+        );
+
+        if (!mounted) return;
+        // authenticated
+        Navigator.of(context).pushReplacement(HomeScreen.route);
+      } else {
+        // delay to show loading indicator
+        await Future.delayed(const Duration(milliseconds: 700));
+
+        if (!mounted) return;
+        // not authenticated
+        Navigator.of(context).pushReplacement(SignInScreen.route);
+      }
     });
   }
 
   @override
+  void dispose() {
+    listener.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.deepPurple.shade700,
+    return const Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Logo
-            const Icon(Icons.chat_bubble, size: 80, color: Colors.white),
-
-            const SizedBox(height: 20),
-
-            // App Title
-            const Text(
-              'Ams Messaging',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-
-            const SizedBox(height: 8),
-
-            // Tagline or loading indicator
-            const Text(
-              'Connecting you securely...',
-              style: TextStyle(color: Colors.white70, fontSize: 16),
-            ),
-
-            const SizedBox(height: 40),
-            const CircularProgressIndicator(color: Colors.white),
-          ],
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }

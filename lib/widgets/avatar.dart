@@ -1,29 +1,62 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class Avatar extends StatelessWidget {
-  final String? imageUrl;
-  final double radius;
-  final String? fallbackText;
-
   const Avatar({
     super.key,
-    this.imageUrl,
-    this.radius = 24,
-    this.fallbackText,
+    this.url,
+    required this.radius,
+    this.onTap,
   });
+
+  const Avatar.small({
+    super.key,
+    this.url,
+    this.onTap,
+  })  : radius = 18;
+
+  const Avatar.medium({
+    super.key,
+    this.url,
+    this.onTap,
+  })  : radius = 26;
+
+  const Avatar.large({
+    super.key,
+    this.url,
+    this.onTap,
+  })  : radius = 34;
+
+  final double radius;
+  final String? url;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: Colors.deepPurple.shade100,
-      backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
-      child: imageUrl == null
-          ? Text(
-        fallbackText?.substring(0, 1).toUpperCase() ?? '?',
-        style: TextStyle(fontSize: radius * 0.8, color: Colors.deepPurple),
-      )
-          : null,
+    return GestureDetector(
+      onTap: onTap,
+      child: _avatar(context),
     );
+  }
+
+  Widget _avatar(BuildContext context) {
+    if (url != null) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: CachedNetworkImageProvider(url!),
+        backgroundColor: Theme.of(context).cardColor,
+      );
+    } else {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: Theme.of(context).cardColor,
+        child: Center(
+          child: Text(
+            '?',
+            style: TextStyle(fontSize: radius),
+          ),
+        ),
+      );
+    }
   }
 }
