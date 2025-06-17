@@ -23,18 +23,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   }
 
   void _submitProfile() {
-    // final name = _nameController.text.trim();
-    //
-    // if (name.isEmpty) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(content: Text('Name is required')),
-    //   );
-    //   return;
-    // }
-    //
-    // // Proceed with saving name and optional image
-    // Navigator.pushReplacementNamed(context, '/chat-list');
+    final name = _nameController.text.trim();
 
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Name is required')),
+      );
+      return;
+    }
+
+    // Proceed with saving name and optional image
     Navigator.pushReplacementNamed(context, '/chat-list');
   }
 
@@ -43,11 +41,11 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Setup'),
-        backgroundColor: Colors.deepPurple,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 30),
             GestureDetector(
@@ -74,7 +72,6 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             ElevatedButton(
               onPressed: _submitProfile,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
               ),
               child: const Text('Continue'),

@@ -11,15 +11,13 @@ plugins {
 android {
     namespace = "com.americansoftwares.ams_messaging"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -42,6 +40,9 @@ android {
     }
     buildFeatures{
         buildConfig = true
+    }
+    kotlin {
+        jvmToolchain(17)
     }
 }
 

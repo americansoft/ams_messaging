@@ -4,8 +4,7 @@ import 'package:ams_messaging/app.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../../config/app_theme.dart';
 import '../../core/utils/date_formatter.dart';
@@ -109,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     _MessageList(messages: messages),
               ),
             ),
-            const _ActionBar(),
+            const StreamMessageInput(),
           ],
         ),
       ),
