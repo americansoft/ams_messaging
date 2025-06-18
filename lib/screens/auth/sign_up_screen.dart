@@ -3,7 +3,6 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' hide Logger;
-import 'package:logger/logger.dart';
 import '../home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -31,9 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool _loading = false;
 
-  var logger = Logger(
-    printer: PrettyPrinter(),
-  );
 
   Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
@@ -93,9 +89,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Auth error')),
         );
-      } catch (e, st) {
+      } catch (e) {
 
-        logger.e('Sign up error$e$st');
+        //Todo Catch Error
         if(!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('An error occurred')),

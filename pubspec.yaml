@@ -46,14 +46,10 @@ dependencies:
   firebase_storage: ^12.4.7
   cloud_functions: ^5.5.2
 
-  logger: ^2.5.0
-
-
-  faker: ^2.2.0
   collection: ^1.19.1
   stream_chat_flutter_core: ^9.11.0
   stream_chat_flutter: ^9.11.0
-  image_gallery_saver: ^2.0.3
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

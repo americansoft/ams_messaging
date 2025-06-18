@@ -2,7 +2,6 @@ import 'package:ams_messaging/app.dart';
 import 'package:ams_messaging/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 
 import '../config/app_theme.dart';
 import '../pages/calls_page.dart';
@@ -47,10 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
     pageIndex.value = index;
   }
 
-  var logger = Logger(
-    printer: PrettyPrinter(),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: IconBackground(
             icon: Icons.search,
             onTap: () {
-              logger.i('TODO search');
+              //Todo Catch Error
             },
           ),
         ),

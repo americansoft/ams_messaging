@@ -1,6 +1,5 @@
 import 'package:ams_messaging/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' hide Logger;
 
 import '../home_screen.dart';
@@ -30,9 +29,6 @@ class _SignInScreenState extends State<SignInScreen> {
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   bool _loading = false;
-  var logger = Logger(
-    printer: PrettyPrinter(),
-  );
 
   Future<void> _signIn() async {
     if (_formKey.currentState!.validate()) {
@@ -80,16 +76,14 @@ class _SignInScreenState extends State<SignInScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.message ?? 'Auth error')),
         );
-      } on FirebaseFunctionsException catch (e) {
-        logger.e(e.code);
-        logger.e(e.message);
-        logger.e(e.details);
+      } on FirebaseFunctionsException catch (_) {
+        //Todo Catch Error
         if(!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Error retrieving Stream Chat token')),
         );
-      } catch (e, st) {
-        logger.e('Sign in error,$e $st' );
+      } catch (e) {
+        //Todo Catch Error
         if(!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('An error occurred')),

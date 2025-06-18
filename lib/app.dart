@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
-const streamKey = 'ucv6y72vafgu'; // TODO: input your Stream app key here.
+const streamKey = 'ucv6y72vafgu';
 
 
 /// Extensions can be used to add functionality to the SDK.

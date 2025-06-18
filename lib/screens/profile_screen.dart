@@ -3,7 +3,6 @@ import 'package:ams_messaging/app.dart';
 import 'package:ams_messaging/screens/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' hide Logger;
 
 import '../widgets/avatar.dart';
@@ -71,9 +70,6 @@ class __SignOutButtonState extends State<_SignOutButton> {
       _loading = true;
     });
 
-    var logger = Logger(
-      printer: PrettyPrinter(),
-    );
 
 
     try {
@@ -82,8 +78,8 @@ class __SignOutButtonState extends State<_SignOutButton> {
       await firebase.FirebaseAuth.instance.signOut();
 
       nav.pushReplacement(SplashScreen.route);
-    } on Exception catch (e, st) {
-      logger.e('Could not sign out $e, $st');
+    } on Exception catch (e, _) {
+      //Todo Catch Error
       setState(() {
         _loading = false;
       });
