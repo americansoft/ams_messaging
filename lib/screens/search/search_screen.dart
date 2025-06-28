@@ -41,13 +41,13 @@ class _SearchScreenState extends State<SearchScreen> {
         title: TextField(
           controller: _searchController,
           autofocus: true,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             hintText: 'Search...',
-            border: InputBorder.none,
+            filled: true,
+            fillColor: Colors.grey.shade200,
           ),
           onChanged: _search,
-        ),
-        backgroundColor: Colors.deepPurple,
+        )
       ),
       body: _filteredItems.isEmpty
           ? const Center(child: Text('No results found'))

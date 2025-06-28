@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
-import 'auth/sign_in_screen.dart';
-import 'home_screen.dart';
+import '../config/app_routes.dart';
+import 'auth/Login/components/video_util.dart';
 
 class SplashScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
@@ -20,7 +20,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late final StreamSubscription<firebase.User?> listener;
-
   @override
   void initState() {
     super.initState();
@@ -54,17 +53,19 @@ class _SplashScreenState extends State<SplashScreen> {
           User(id: user.uid),
           results[0].data,
         );
+        debugPrint("Video Stream Created");
+        connectVideoStream(user,results[0].data);
 
         if (!mounted) return;
         // authenticated
-        Navigator.of(context).pushReplacement(HomeScreen.route);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.home);
       } else {
         // delay to show loading indicator
         await Future.delayed(const Duration(milliseconds: 700));
 
         if (!mounted) return;
         // not authenticated
-        Navigator.of(context).pushReplacement(SignInScreen.route);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.welcome);
       }
     });
   }

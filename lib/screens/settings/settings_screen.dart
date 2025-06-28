@@ -8,7 +8,6 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
         children: [
@@ -30,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     SizedBox(height: 4),
-                    Text('Hey there! I’m using WhatsClone.'),
+                    Text('Hey there!'),
                   ],
                 ),
               ],

@@ -1,20 +1,21 @@
 import 'package:ams_messaging/config/app_routes.dart';
-import 'package:ams_messaging/screens/auth/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import '../screens/auth/Welcome/welcome_screen.dart';
 import '../screens/auth/profile_setup_screen.dart';
-import '../screens/chat/chat_list_screen.dart';
-import '../screens/chat/chat_screen.dart';
+import '../screens/chat/chat_screen/chat_screen.dart';
 import '../screens/chat/media_viewer_screen.dart';
 import '../screens/contact/contact_picker_screen.dart';
 import '../screens/contact/contact_sync_screen.dart';
 import '../screens/group/create_group_screen.dart';
 import '../screens/group/group_info_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/search/search_screen.dart';
 import '../screens/settings/settings_screen.dart';
 import '../screens/status/status_screen.dart';
 import '../screens/status/view_status_screen.dart';
 import '../screens/notifications_screen.dart';
 import '../screens/splash_screen.dart';
+import '../screens/video_calling/call_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -22,17 +23,21 @@ class RouteGenerator {
       case AppRoutes.splash:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
-      case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const SignInScreen());
+      case AppRoutes.welcome:
+        return MaterialPageRoute(builder: (_) => const WelcomeScreen());
+
+      case AppRoutes.home:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
 
       case AppRoutes.profileSetup:
         return MaterialPageRoute(builder: (_) => const ProfileSetupScreen());
 
-      case AppRoutes.chatList:
-        return MaterialPageRoute(builder: (_) => ChatListScreen());
-
       case AppRoutes.chat:
         return MaterialPageRoute(builder: (_) => const ChatScreen());
+
+      case AppRoutes.callScreen:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(builder: (_) => CallScreen(call:args?['call']));
 
       case AppRoutes.mediaViewer:
         return MaterialPageRoute(builder: (_) => const MediaViewerScreen());

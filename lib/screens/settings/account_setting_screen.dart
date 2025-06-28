@@ -8,7 +8,6 @@ class AccountSettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Account Settings'),
-        backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
         children: [

@@ -1,16 +1,17 @@
 import 'package:ams_messaging/app.dart';
+import 'package:ams_messaging/config/constants.dart';
 import 'package:ams_messaging/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-import '../config/app_theme.dart';
-import '../pages/calls_page.dart';
-import '../pages/contacts_page.dart';
-import '../pages/messages_page.dart';
-import '../pages/notifications_page.dart';
 import '../widgets/avatar.dart';
 import '../widgets/glowing_action_button.dart';
 import '../widgets/icon_buttons.dart';
+import 'nav_pages/calls_page.dart';
+import 'nav_pages/contacts_page.dart';
+import 'nav_pages/messages_page/components/Channel_list_page.dart';
+import 'nav_pages/notifications_page.dart';
 
 class HomeScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
@@ -27,9 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final ValueNotifier<String> title = ValueNotifier('Messages');
 
-  final pages = const [
-    MessagesPage(),
-    NotificationsPage(),
+
+
+  late final pages = [
+
+    ChannelListPage(client: StreamChatCore.of(context).client),
+    const NotificationsPage(),
     CallsPage(),
     ContactsPage(),
   ];
@@ -88,21 +92,31 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: _BottomNavigationBar(
         onItemSelected: _onNavigationItemSelected,
       ),
-      floatingActionButton: GlowingActionButton(
-        color: AppColors.secondary,
-        icon: CupertinoIcons.add,
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => const Dialog(
-              child: AspectRatio(
-                aspectRatio: 8 / 7,
-                child: ContactsPage(),
-              ),
+      floatingActionButton: _FloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+    );
+  }
+}
+
+class _FloatingActionButton extends StatelessWidget {
+  const _FloatingActionButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return GlowingActionButton(
+      color: AppColors.secondary,
+      icon: CupertinoIcons.add,
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => const Dialog(
+            child: AspectRatio(
+              aspectRatio: 8 / 7,
+              child: ContactsPage(),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -218,11 +232,11 @@ class _NavigationBarItem extends StatelessWidget {
               label,
               style: isSelected
                   ? const TextStyle(
-                      fontSize: 11,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                       color: AppColors.secondary,
                     )
-                  : const TextStyle(fontSize: 11),
+                  : const TextStyle(fontSize: 8),
             ),
           ],
         ),

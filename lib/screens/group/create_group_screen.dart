@@ -48,8 +48,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Group'),
-        backgroundColor: Colors.deepPurple,
+        title: const Text('Create Group')
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -59,11 +58,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               onTap: _pickImage,
               child: CircleAvatar(
                 radius: 45,
-                backgroundColor: Colors.deepPurple.shade100,
                 backgroundImage:
                 _groupImage != null ? FileImage(_groupImage!) : null,
                 child: _groupImage == null
-                    ? const Icon(Icons.camera_alt, size: 30, color: Colors.white70)
+                    ? const Icon(Icons.camera_alt)
                     : null,
               ),
             ),
@@ -71,8 +69,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             TextField(
               controller: _groupNameController,
               decoration: InputDecoration(
-                labelText: 'Group Name',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                hint: Text('Group Name'),
+                filled: true,
+                fillColor: Colors.grey.shade200,
               ),
             ),
             const SizedBox(height: 20),

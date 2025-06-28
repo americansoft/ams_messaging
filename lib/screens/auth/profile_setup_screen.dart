@@ -21,6 +21,12 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       });
     }
   }
+  Future <void> _addUsernameAndImage() async {
+
+
+
+    Navigator.pushReplacementNamed(context, '/chat-list');
+  }
 
   void _submitProfile() {
     final name = _nameController.text.trim();
@@ -31,51 +37,69 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       );
       return;
     }
+    _addUsernameAndImage();
 
-    // Proceed with saving name and optional image
-    Navigator.pushReplacementNamed(context, '/chat-list');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Profile Setup'),
+        title: const Text('Profile Info')
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 30),
             GestureDetector(
               onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey.shade300,
-                backgroundImage:
-                _imageFile != null ? FileImage(_imageFile!) : null,
-                child: _imageFile == null
-                    ? const Icon(Icons.camera_alt, size: 40, color: Colors.white70)
-                    : null,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 65,
+                    backgroundColor: Colors.grey.shade200,
+                    backgroundImage:
+                    _imageFile != null ? FileImage(_imageFile!) : null,
+                    child: _imageFile == null
+                        ? const Icon(Icons.person)
+                        : null,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      radius: 20,
+                      child: const Icon(Icons.camera_alt),
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
+            Text(
+              'Please provide your name and an optional profile photo',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
-                labelText: 'Enter your name',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                hintText: 'Your Name',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade200,
               ),
             ),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: _submitProfile,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
-              ),
-              child: const Text('Continue'),
-            )
+              child: const Text('Next')
+            ),
           ],
         ),
       ),

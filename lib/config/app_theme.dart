@@ -1,29 +1,8 @@
+import 'package:ams_messaging/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-abstract class AppColors {
-  static const secondary = Color(0xFF3B76F6);
-  static const accent = Color(0xFFD6755B);
-  static const textDark = Color(0xFF53585A);
-  static const textLigth = Color(0xFFF5F5F5);
-  static const textFaded = Color(0xFF9899A5);
-  static const iconLight = Color(0xFFB1B4C0);
-  static const iconDark = Color(0xFFB1B3C1);
-  static const textHighlight = secondary;
-  static const cardLight = Color(0xFFF9FAFE);
-  static const cardDark = Color(0xFF303334);
-}
-
-abstract class _LightColors {
-  static const background = Colors.white;
-  static const card = AppColors.cardLight;
-}
-
-abstract class _DarkColors {
-  static const background = Color(0xFF1B1E1F);
-  static const card = AppColors.cardDark;
-}
 
 /// Reference to the application theme.
 class AppTheme {
@@ -33,8 +12,31 @@ class AppTheme {
   final darkBase = ThemeData.dark();
   final lightBase = ThemeData.light();
 
+
   /// Light theme and its settings.
   ThemeData get light => ThemeData(
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: AppColors.kPrimaryLightColor,
+      iconColor: AppColors.kPrimaryColor,
+      prefixIconColor: AppColors.kPrimaryColor,
+      contentPadding: EdgeInsets.symmetric(
+          horizontal: AppConstants.defaultPadding, vertical: AppConstants.defaultPadding),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderSide: BorderSide.none,
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        foregroundColor: Colors.white,
+        backgroundColor: AppColors.kPrimaryColor,
+        shape: const StadiumBorder(),
+        maximumSize: const Size(double.infinity, 56),
+        minimumSize: const Size(double.infinity, 56),
+      ),
+    ),
     brightness: Brightness.light,
     visualDensity: visualDensity,
     textTheme:
@@ -51,15 +53,12 @@ class AppTheme {
       ),
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
-    scaffoldBackgroundColor: _LightColors.background,
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(backgroundColor: AppColors.secondary),
-    ),
-    cardColor: _LightColors.card,
+    scaffoldBackgroundColor: LightColors.background,
+    cardColor: LightColors.card,
     primaryTextTheme: const TextTheme(
       titleLarge: TextStyle(color: AppColors.textDark),
     ),
-    iconTheme: const IconThemeData(color: AppColors.iconDark), colorScheme: lightBase.colorScheme.copyWith(secondary: accentColor).copyWith(surface: _LightColors.background),
+    iconTheme: const IconThemeData(color: AppColors.iconDark), colorScheme: lightBase.colorScheme.copyWith(secondary: accentColor).copyWith(surface: LightColors.background),
   );
 
   /// Dark theme and its settings.
@@ -67,7 +66,7 @@ class AppTheme {
     brightness: Brightness.dark,
     visualDensity: visualDensity,
     textTheme:
-    GoogleFonts.interTextTheme().apply(bodyColor: AppColors.textLigth),
+    GoogleFonts.interTextTheme().apply(bodyColor: AppColors.textLight),
     appBarTheme: darkBase.appBarTheme.copyWith(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -78,14 +77,14 @@ class AppTheme {
       ),
       systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
-    scaffoldBackgroundColor: _DarkColors.background,
+    scaffoldBackgroundColor: DarkColors.background,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(backgroundColor: AppColors.secondary),
     ),
-    cardColor: _DarkColors.card,
+    cardColor: DarkColors.card,
     primaryTextTheme: const TextTheme(
-      titleLarge: TextStyle(color: AppColors.textLigth),
+      titleLarge: TextStyle(color: AppColors.textLight),
     ),
-    iconTheme: const IconThemeData(color: AppColors.iconLight), colorScheme: darkBase.colorScheme.copyWith(secondary: accentColor).copyWith(surface: _DarkColors.background),
+    iconTheme: const IconThemeData(color: AppColors.iconLight), colorScheme: darkBase.colorScheme.copyWith(secondary: accentColor).copyWith(surface: DarkColors.background),
   );
 }

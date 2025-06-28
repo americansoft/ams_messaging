@@ -17,7 +17,6 @@ class GroupInfoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Group Info'),
-        backgroundColor: Colors.deepPurple,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),

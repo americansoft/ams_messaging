@@ -1,18 +1,21 @@
 import 'dart:async';
 
 import 'package:ams_messaging/app.dart';
+import 'package:ams_messaging/config/app_routes.dart';
+import 'package:ams_messaging/config/constants.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:stream_video_flutter/stream_video_flutter.dart' hide User ;
 
-import '../../config/app_theme.dart';
-import '../../core/utils/date_formatter.dart';
-import '../../helpers.dart';
-import '../../widgets/avatar.dart';
-import '../../widgets/display_error_message.dart';
-import '../../widgets/glowing_action_button.dart';
-import '../../widgets/icon_buttons.dart';
+import '../../../core/utils/date_formatter.dart';
+import '../../../helpers.dart';
+import '../../../widgets/avatar.dart';
+import '../../../widgets/display_error_message.dart';
+import '../../../widgets/glowing_action_button.dart';
+import '../../../widgets/icon_buttons.dart';
+import 'components/message_list.dart';
 
 class ChatScreen extends StatefulWidget {
   static Route routeWithChannel(Channel channel) => MaterialPageRoute(
@@ -43,6 +46,8 @@ class _ChatScreenState extends State<ChatScreen> {
         .unreadCountStream
         .listen(_unreadCountHandler);
   }
+
+
 
   Future<void> _unreadCountHandler(int count) async {
     if (count > 0) {
@@ -88,30 +93,58 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Center(
                 child: IconBorder(
                   icon: CupertinoIcons.phone_solid,
-                  onTap: () {},
+                  onTap: () async {
+                    try {
+
+                      var call = StreamVideo.instance.makeCall(
+                        callType: StreamCallType.defaultType(),
+                        id: '4yd8K1wh3kKR'
+                      );
+                      await call.getOrCreate(video: true,ringing: true);
+                      Navigator.pushNamed(
+                        context,AppRoutes.callScreen,arguments: {'call':call}
+                      );
+                    } catch (e) {
+                      debugPrint('Error joining or creating call: $e');
+                      debugPrint(e.toString());
+                    }
+                  },
                 ),
               ),
             ),
           ],
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: MessageListCore(
-                loadingBuilder: (context) {
-                  return const Center(child: CircularProgressIndicator());
-                },
-                emptyBuilder: (context) => const SizedBox.shrink(),
-                errorBuilder: (context, error) =>
-                    DisplayErrorMessage(error: error),
-                messageListBuilder: (context, messages) =>
-                    _MessageList(messages: messages),
-              ),
-            ),
-            const StreamMessageInput(),
-          ],
-        ),
+        )
+        ,
+        body: MessageList()
+        // Column(
+        //   children: [
+        //     Expanded(
+        //       child: MessageListWidget(),
+        //     ),
+        //     const _ActionBar(),
+        //   ],
+        // ),
       ),
+    );
+  }
+}
+
+class MessageListWidget extends StatelessWidget {
+  const MessageListWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MessageListCore(
+      loadingBuilder: (context) {
+        return const Center(child: CupertinoActivityIndicator());
+      },
+      emptyBuilder: (context) => const SizedBox.shrink(),
+      errorBuilder: (context, error) =>
+          DisplayErrorMessage(error: error),
+      messageListBuilder: (context, messages) =>
+          _MessageList(messages: messages),
     );
   }
 }
@@ -208,7 +241,7 @@ class _MessageTile extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
                 Jiffy.parse(message.createdAt.toLocal().toString()).jm,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.textFaded,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
@@ -254,8 +287,8 @@ class _MessageOwnTile extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
                 child: Text(message.text ?? '',
-                    style: const TextStyle(
-                      color: AppColors.textLigth,
+                    style: TextStyle(
+                      color: AppColors.textLight,
                     )),
               ),
             ),
@@ -378,7 +411,7 @@ class _AppBarTitle extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.green,
+                            color: CupertinoColors.activeGreen,
                           ),
                         );
                       case ConnectionStatus.disconnected:
@@ -387,7 +420,7 @@ class _AppBarTitle extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.bold,
-                            color: Colors.red,
+                            color: CupertinoColors.systemRed,
                           ),
                         );
                       }
@@ -430,7 +463,7 @@ class _AppBarTitle extends StatelessWidget {
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.bold,
-              color: Colors.green,
+              color: CupertinoColors.activeGreen,
             ),
           );
         } else {
@@ -440,7 +473,7 @@ class _AppBarTitle extends StatelessWidget {
             style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.bold,
-              color: Colors.red,
+              color: CupertinoColors.systemRed,
             ),
           );
         }
@@ -550,7 +583,7 @@ class ConnectionStatusBuilder extends StatelessWidget {
       builder: statusBuilder,
     );
   }
-}
+ }
 
 class _ActionBar extends StatefulWidget {
   const _ActionBar();

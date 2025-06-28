@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
-import '../screens/chat/chat_screen.dart';
-import '../widgets/avatar.dart';
-import '../widgets/display_error_message.dart';
+import '../../widgets/avatar.dart';
+import '../../widgets/display_error_message.dart';
+import '../chat/chat_screen/chat_screen.dart';
+
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});

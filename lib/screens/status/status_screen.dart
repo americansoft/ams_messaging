@@ -16,7 +16,6 @@ class StatusScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Status'),
-        backgroundColor: Colors.deepPurple,
       ),
       body: ListView(
         children: [

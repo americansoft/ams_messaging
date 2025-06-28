@@ -1,7 +1,7 @@
+import 'package:ams_messaging/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
 
-import '../config/app_theme.dart';
 
 
 /// Widget for showing an unread indicator

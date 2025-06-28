@@ -19,7 +19,7 @@ class _ViewStatusScreenState extends State<ViewStatusScreen> {
   }
 
   void _startProgress() {
-    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       setState(() {
         _progress += 0.02;
         if (_progress >= 1) {

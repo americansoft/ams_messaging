@@ -1,13 +1,14 @@
 import 'package:ams_messaging/app.dart';
+import 'package:ams_messaging/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-import '../config/app_theme.dart';
-import '../helpers.dart';
-import '../screens/chat/chat_screen.dart';
-import '../widgets/avatar.dart';
-import '../widgets/display_error_message.dart';
-import '../widgets/unread_indicator.dart';
+import '../../../helpers.dart';
+import '../../../widgets/avatar.dart';
+import '../../../widgets/display_error_message.dart';
+import '../../../widgets/unread_indicator.dart';
+import '../../chat/chat_screen/chat_screen.dart';
+import 'components/Channel_list_page.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
@@ -43,7 +44,8 @@ class _MessagesPageState extends State<MessagesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MessagesPageWidget(channelListController: channelListController);
+    return ChannelListPage(client: StreamChatCore.of(context).client);
+    //return MessagesPageWidget(channelListController: channelListController);
   }
 }
 
@@ -210,11 +212,11 @@ class _MessageTile extends StatelessWidget {
               lastMessage.text ?? '',
               overflow: TextOverflow.ellipsis,
               style: (count > 0)
-                  ? const TextStyle(
+                  ? TextStyle(
                 fontSize: 12,
                 color: AppColors.secondary,
               )
-                  : const TextStyle(
+                  : TextStyle(
                 fontSize: 12,
                 color: AppColors.textFaded,
               ),

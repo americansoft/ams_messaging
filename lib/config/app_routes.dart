@@ -2,6 +2,8 @@
 class AppRoutes {
   // 🔰 Root & Onboarding
   static const String splash = '/';
+  static const String welcome = 'welcome';
+  static const String home = 'home';
   static const String login = '/login';
   static const String otp = '/otp';
   static const String profileSetup = '/profile-setup';
@@ -9,6 +11,7 @@ class AppRoutes {
   // 💬 Chat & Messaging
   static const String chatList = '/chat-list';
   static const String chat = '/chat';
+  static const String callScreen = '/call-screen';
   static const String mediaViewer = '/media-viewer';
 
   // 👥 Contacts & Groups
