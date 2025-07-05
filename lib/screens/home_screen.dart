@@ -1,16 +1,14 @@
-import 'package:ams_messaging/app.dart';
-import 'package:ams_messaging/config/constants.dart';
+import 'package:ams_messaging/config/constansts/app_colors.dart';
+import 'package:ams_messaging/screens/chat/chat_screen/chat_screen.dart';
 import 'package:ams_messaging/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../widgets/avatar.dart';
 import '../widgets/glowing_action_button.dart';
 import '../widgets/icon_buttons.dart';
 import 'nav_pages/calls_page.dart';
 import 'nav_pages/contacts_page.dart';
-import 'nav_pages/messages_page/components/Channel_list_page.dart';
 import 'nav_pages/notifications_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,8 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late final pages = [
 
-    ChannelListPage(client: StreamChatCore.of(context).client),
-    const NotificationsPage(),
+    ChatListPage(),
+    NotificationsPage(),
     CallsPage(),
     ContactsPage(),
   ];
@@ -74,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Hero(
               tag: 'hero-profile-picture',
               child: Avatar.small(
-                url: context.currentUserImage,
+                url: context.currentUser!.image,
                 onTap: () {
                   Navigator.of(context).push(ProfileScreen.route);
                 },

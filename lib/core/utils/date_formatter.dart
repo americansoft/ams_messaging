@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 class DateFormatter {
   static String chatTimestamp(DateTime date) {
     return DateFormat('hh:mm a').format(date);

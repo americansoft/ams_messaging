@@ -1,4 +1,5 @@
-import 'package:ams_messaging/config/constants.dart';
+import 'package:ams_messaging/config/constansts/app_colors.dart';
+import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';

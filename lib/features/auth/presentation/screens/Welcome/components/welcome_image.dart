@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ams_messaging/config/constants.dart' show AppConstants;
+import 'package:ams_messaging/config/constansts/app_constants.dart' show AppConstants;
 class WelcomeImage extends StatelessWidget {
   const WelcomeImage({
     super.key,

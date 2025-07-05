@@ -1,4 +1,4 @@
-import 'package:ams_messaging/config/constants.dart';
+import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../Login/login_screen.dart';

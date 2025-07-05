@@ -1,12 +1,8 @@
 import 'dart:async';
 
-import 'package:cloud_functions/cloud_functions.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
-import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart';
-
-import '../config/app_routes.dart';
-import 'auth/Login/components/video_util.dart';
+ 
+import '../config/constansts/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
@@ -19,7 +15,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late final StreamSubscription<firebase.User?> listener;
   @override
   void initState() {
     super.initState();
@@ -31,7 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (!mounted) {
       return;
     }
-    FirebaseFunctions functions = FirebaseFunctions.instanceFor(region: 'us-central1');
     listener = auth.authStateChanges().listen((user) async {
       if (user != null) {
 
@@ -72,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    listener.cancel();
     super.dispose();
   }
 

@@ -3,7 +3,7 @@ import 'package:ams_messaging/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../config/app_routes.dart';
+import '../../../../config/constansts/app_routes.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({super.key});

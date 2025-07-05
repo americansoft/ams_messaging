@@ -1,9 +1,6 @@
 
-import 'package:ams_messaging/app.dart';
 import 'package:ams_messaging/screens/splash_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:flutter/material.dart';
-import 'package:stream_chat_flutter_core/stream_chat_flutter_core.dart' hide Logger;
 
 import '../widgets/avatar.dart';
 import '../widgets/icon_buttons.dart';

@@ -1,5 +1,5 @@
 import 'package:auth/core/usecase/usecase.dart';
-import 'package:auth/domain/repository/auth.dart';
+import 'package:auth/domain/repositories/auth.dart';
 import 'package:auth/service_locator.dart';
 import 'package:dartz/dartz.dart';
 
