@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/constants.dart' show AppColors;
+import '../../config/constants.dart' show AppColors;
 
 
 class OrDivider extends StatelessWidget {

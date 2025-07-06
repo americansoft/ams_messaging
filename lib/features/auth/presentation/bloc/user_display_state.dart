@@ -1,6 +1,6 @@
-import 'package:auth/domain/entities/user.dart';
+import 'package:ams_messaging/features/auth/domain/entities/user.dart';
 
-abstract class UserDisplayState {}
+abstract class UserDisplayState{}
 
 class UserLoading extends UserDisplayState {}
 
@@ -12,4 +12,4 @@ class UserLoaded extends UserDisplayState {
 class LoadUserFailure extends UserDisplayState {
   final String errorMessage;
   LoadUserFailure({required this.errorMessage});
-}
+}   

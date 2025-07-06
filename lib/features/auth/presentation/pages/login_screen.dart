@@ -1,42 +1,42 @@
+import 'package:ams_messaging/features/auth/presentation/widgets/background.dart';
 import 'package:flutter/material.dart';
 
-import '../components/background.dart';
-import 'components/sign_up_top_image.dart';
-import 'components/signup_form.dart';
+import '../widgets/login_form.dart';
+import '../widgets/login_screen_top_image.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Background(
+    return Background(
       child: SingleChildScrollView(
-        child: _SignupScreenWidget()
+        child: _LoginScreenWidget(),
       ),
     );
   }
 }
 
-class _SignupScreenWidget extends StatelessWidget {
-  const _SignupScreenWidget();
+class _LoginScreenWidget extends StatelessWidget {
+  const _LoginScreenWidget();
+
 
   @override
   Widget build(BuildContext context) {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        SignUpScreenTopImage(),
+        LoginScreenTopImage(),
         Row(
           children: [
             Spacer(),
             Expanded(
               flex: 8,
-              child: SignUpForm(),
+              child: LoginForm(),
             ),
             Spacer(),
           ],
         ),
-        // const SocialSignUp()
       ],
     );
   }

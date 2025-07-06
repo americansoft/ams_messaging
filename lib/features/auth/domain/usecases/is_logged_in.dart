@@ -1,12 +1,13 @@
-import 'package:auth/core/usecase/usecase.dart';
-import 'package:auth/domain/repositories/auth.dart';
-import 'package:auth/service_locator.dart';
 
-class IsLoggedInUseCase implements UseCase<bool, dynamic> {
+import 'package:ams_messaging/features/auth/data/datasources/local/auth_local_service.dart';
 
-  @override
-  Future<bool> call({dynamic param}) async {
-    return sl<AuthRepository>().isLoggedIn();
+class IsLoggedInUseCase {
+  final AuthLocalService _authLocalService;
+
+  IsLoggedInUseCase(this._authLocalService);
+
+  Future<bool> call() async {
+    return await _authLocalService.isLoggedIn();
   }
   
 }

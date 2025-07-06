@@ -1,64 +1,97 @@
-import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/config/constansts/app_constants.dart';
-import 'package:ams_messaging/config/constansts/app_routes.dart';
-import 'package:ams_messaging/features/auth/presentation/screens/components/already_have_an_account_check.dart';
+import 'package:ams_messaging/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-import '../../Signup/signup_screen.dart';
+import '../../../config/app_routes.dart';
+import '../pages/login_screen.dart';
+import 'already_have_an_account_check.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({
     super.key,
   });
 
   @override
-  State<StatefulWidget> createState() => _LoginFormState();
-
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
+  final auth = AuthProvider();
 
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _profilePictureController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final kPrimaryColor = AppColors.kPrimaryColor;
+  final defaultPadding = AppConstants.defaultPadding;
+
   final _emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   bool _loading = false;
 
-  final kPrimaryColor = AppColors.kPrimaryColor;
-  final defaultPadding = AppConstants.defaultPadding;
 
+  Future<void> _signUp() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _loading = true;
+      });
+      try {
+        // Authenticate with Firebase
+        final registerResponse =
+        await auth.register(
+            email: _emailController.text,
+            password: _passwordController.text
+        ).then((res) async =>{
 
-  void _signIn() async {
-    final isValid = _formKey.currentState?.validate();
-    if (!isValid!) return;
-
-    _formKey.currentState!.save();
-
-    setState(() => _loading = true);
-
-    try {
-      final user = await Provider.of<AuthProvider>(context, listen: false).login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-
-      if (mounted && user != null) {
-        // Navigate to home screen
-        await Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+        if (mounted) {
+            if (res == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('User is empty')))
+            } else {
+              await Navigator.of(context).pushReplacementNamed(AppRoutes.profileSetup)
+            }
       }
 
-    } catch (e) {
-      if(mounted){
+
+        });
+
+
+
+        // Set Firebase display name and profile picture
+
+
+
+        if (!mounted) return;
+        // Navigate to home screen
+
+      } on Exception catch (e){
+        if(mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.toString())),
+          );
+        }
+      }
+      catch (error) {
+
+        if(!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString())),
+           SnackBar(content: Text(error.toString())),
         );
       }
+      setState(() {
+        _loading = false;
+      });
     }
+  }
 
-    setState(() => _loading = false);
+  String? _nameInputValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Cannot be empty';
+    }
+    return null;
   }
 
   String? _emailInputValidator(String? value) {
@@ -85,16 +118,20 @@ class _LoginFormState extends State<LoginForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _profilePictureController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    return _loading?CircularProgressIndicator():
-    SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
+    return (_loading)
+        ? const Center(child: CircularProgressIndicator())
+        : Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
           children: [
+            SizedBox(height: defaultPadding / 2),
             TextFormField(
               controller: _emailController,
               validator: _emailInputValidator,
@@ -106,7 +143,7 @@ class _LoginFormState extends State<LoginForm> {
                 hintText: "Your email",
                 prefixIcon: Padding(
                   padding: EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.person),
+                  child: Icon(Icons.email),
                 ),
               ),
             ),
@@ -127,29 +164,29 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-            SizedBox(height: defaultPadding),
+            SizedBox(height: defaultPadding / 2),
             ElevatedButton(
-              onPressed: _signIn,
-              child: Text(
-                "Login".toUpperCase(),
-              ),
+              onPressed: _signUp,
+              child: Text("Sign Up".toUpperCase()),
             ),
             SizedBox(height: defaultPadding),
             AlreadyHaveAnAccountCheck(
+              login: false,
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const SignUpScreen();
+                      return const LoginScreen();
                     },
                   ),
                 );
               },
             ),
           ],
-        ),
-      ),
-    );
+                ),
+          ),
+        );
   }
 }
+

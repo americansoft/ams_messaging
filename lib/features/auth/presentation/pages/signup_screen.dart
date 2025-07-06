@@ -1,43 +1,42 @@
 import 'package:flutter/material.dart';
 
-import '../components/background.dart';
-import 'components/login_signup_btn.dart';
-import 'components/welcome_image.dart';
+import '../widgets/background.dart';
+import '../widgets/sign_up_top_image.dart';
+import '../widgets/signup_form.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Background(
       child: SingleChildScrollView(
-        child: SafeArea(
-          child: _WelcomeScreenWidget(),
-        ),
+        child: _SignupScreenWidget()
       ),
     );
   }
 }
 
-class _WelcomeScreenWidget extends StatelessWidget {
-  const _WelcomeScreenWidget();
+class _SignupScreenWidget extends StatelessWidget {
+  const _SignupScreenWidget();
 
   @override
   Widget build(BuildContext context) {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        WelcomeImage(),
+        SignUpScreenTopImage(),
         Row(
           children: [
             Spacer(),
             Expanded(
               flex: 8,
-              child: LoginAndSignupBtn(),
+              child: SignUpForm(),
             ),
             Spacer(),
           ],
         ),
+        // const SocialSignUp()
       ],
     );
   }

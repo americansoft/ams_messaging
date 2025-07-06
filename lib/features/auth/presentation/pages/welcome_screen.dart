@@ -1,38 +1,39 @@
-import 'package:ams_messaging/features/auth/presentation/screens/components/background.dart';
 import 'package:flutter/material.dart';
 
-import 'components/login_form.dart';
-import 'components/login_screen_top_image.dart';
+import '../widgets/background.dart';
+import '../widgets/login_signup_btn.dart';
+import '../widgets/welcome_image.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Background(
+    return const Background(
       child: SingleChildScrollView(
-        child: _LoginScreenWidget(),
+        child: SafeArea(
+          child: _WelcomeScreenWidget(),
+        ),
       ),
     );
   }
 }
 
-class _LoginScreenWidget extends StatelessWidget {
-  const _LoginScreenWidget();
-
+class _WelcomeScreenWidget extends StatelessWidget {
+  const _WelcomeScreenWidget();
 
   @override
   Widget build(BuildContext context) {
     return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        LoginScreenTopImage(),
+        WelcomeImage(),
         Row(
           children: [
             Spacer(),
             Expanded(
               flex: 8,
-              child: LoginForm(),
+              child: LoginAndSignupBtn(),
             ),
             Spacer(),
           ],

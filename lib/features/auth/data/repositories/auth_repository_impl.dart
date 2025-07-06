@@ -50,14 +50,16 @@ class AuthRepositoryImpl extends AuthRepository {
   
   @override
   Future<bool> isLoggedIn() {
-    return serviceLocator<AuthApiService>().isLoggedIn();
+    // TODO: implement isLoggedIn
+    throw UnimplementedError();
   }
   
   @override
   Future<HttpResponse> logout() {
-    //todo 
+    // TODO: implement logout
+    throw UnimplementedError();
   }
-
+  
 
 
 }

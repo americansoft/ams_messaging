@@ -1,6 +1,6 @@
 import 'package:ams_messaging/config/constansts/app_routes.dart';
-import 'package:ams_messaging/features/auth/presentation/screens/Welcome/welcome_screen.dart';
-import 'package:ams_messaging/features/auth/presentation/screens/profile_setup_screen.dart';
+import 'package:ams_messaging/features/auth/presentation/pages/welcome_screen.dart';
+import 'package:ams_messaging/features/auth/presentation/pages/profile_setup_screen.dart';
 import 'package:flutter/material.dart';
 import '../../screens/chat/media_viewer_screen.dart';
 import '../../screens/contact/contact_picker_screen.dart';

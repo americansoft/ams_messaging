@@ -3,7 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class AuthLocalService {
   Future<bool> isLoggedIn();
   Future<bool> logout();
-Future<String?> getToken();
+  Future<String?> getToken();
+  Future<void> saveToken(String token);
 } 
 
 
@@ -33,5 +34,10 @@ class AuthLocalServiceImpl extends AuthLocalService {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString('token');
   }
-  
+
+  @override
+  Future<void> saveToken(String token) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('token', token);
+  }
 }
