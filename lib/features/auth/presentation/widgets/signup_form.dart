@@ -1,8 +1,12 @@
+import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/config/constansts/app_constants.dart';
-import 'package:ams_messaging/providers/auth_provider.dart';
+import 'package:ams_messaging/config/constansts/app_routes.dart';
+import 'package:ams_messaging/core/utils/validators.dart';
+import 'package:ams_messaging/features/auth/data/models/auth_params.dart';
+import 'package:ams_messaging/features/auth/domain/usecases/register_usecase.dart';
+import 'package:ams_messaging/service_locator.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/app_routes.dart';
 import '../pages/login_screen.dart';
 import 'already_have_an_account_check.dart';
 
@@ -16,8 +20,6 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final auth = AuthProvider();
-
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _profilePictureController = TextEditingController();
@@ -27,11 +29,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final kPrimaryColor = AppColors.kPrimaryColor;
   final defaultPadding = AppConstants.defaultPadding;
 
-  final _emailRegex = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-
   bool _loading = false;
-
 
   Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
@@ -39,11 +37,12 @@ class _SignUpFormState extends State<SignUpForm> {
         _loading = true;
       });
       try {
-        // Authenticate with Firebase
-        final registerResponse =
-        await auth.register(
-            email: _emailController.text,
-            password: _passwordController.text
+  
+        await serviceLocator.get<RegisterUseCase>().call(
+          AuthParams(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          ),
         ).then((res) async =>{
 
         if (mounted) {
@@ -57,10 +56,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
 
         });
-
-
-
-        // Set Firebase display name and profile picture
 
 
 
@@ -87,31 +82,13 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-  String? _nameInputValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Cannot be empty';
-    }
-    return null;
-  }
 
   String? _emailInputValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Cannot be empty';
-    }
-    if (!_emailRegex.hasMatch(value)) {
-      return 'Not a valid email';
-    }
-    return null;
+    return Validators.emailInputValidator(value);
   }
 
   String? _passwordInputValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Cannot be empty';
-    }
-    if (value.length <= 6) {
-      return 'Password needs to be longer than 6 characters';
-    }
-    return null;
+    return Validators.passwordInputValidator(value);
   }
 
   @override

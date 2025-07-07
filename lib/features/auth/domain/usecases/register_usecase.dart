@@ -7,12 +7,12 @@ import 'package:ams_messaging/service_locator.dart';
 class RegisterUseCase {
 
 
-  Future<AuthModel> call(AuthParams  param) async {
+  Future<AuthModel?> call(AuthParams  param) async {
     return serviceLocator.get<AuthRepository>().register(param).then((response) {
       if (response.data != null) {
         return AuthModel.fromJson(response.data);
       } else {
-        throw Exception('Registration data is empty');
+        return null;
       }
     });
   }

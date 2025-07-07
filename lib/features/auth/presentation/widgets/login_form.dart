@@ -1,10 +1,13 @@
 import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:ams_messaging/config/constansts/app_routes.dart';
+import 'package:ams_messaging/core/utils/validators.dart';
+import 'package:ams_messaging/features/auth/data/models/auth_params.dart';
+import 'package:ams_messaging/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ams_messaging/features/auth/presentation/widgets/already_have_an_account_check.dart';
+import 'package:ams_messaging/service_locator.dart';
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
 import '../pages/signup_screen.dart';
 
 class LoginForm extends StatefulWidget {
@@ -40,9 +43,10 @@ class _LoginFormState extends State<LoginForm> {
     setState(() => _loading = true);
 
     try {
-      final user = await Provider.of<AuthProvider>(context, listen: false).login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      final user = await serviceLocator.get<LoginUseCase>().call(
+        AuthParams(
+          email: _emailController.text.trim(), 
+          password:  _passwordController.text.trim())
       );
 
       if (mounted && user != null) {
@@ -61,24 +65,14 @@ class _LoginFormState extends State<LoginForm> {
     setState(() => _loading = false);
   }
 
+  
+
   String? _emailInputValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Cannot be empty';
-    }
-    if (!_emailRegex.hasMatch(value)) {
-      return 'Not a valid email';
-    }
-    return null;
+    return Validators.emailInputValidator(value);
   }
 
   String? _passwordInputValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Cannot be empty';
-    }
-    if (value.length <= 6) {
-      return 'Password needs to be longer than 6 characters';
-    }
-    return null;
+    return Validators.passwordInputValidator(value);
   }
 
   @override

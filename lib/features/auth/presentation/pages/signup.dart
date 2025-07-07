@@ -1,11 +1,3 @@
-import 'package:auth/common/bloc/button/button_state.dart';
-import 'package:auth/common/bloc/button/button_state_cubit.dart';
-import 'package:auth/common/widgets/button/basic_app_button.dart';
-import 'package:auth/data/models/signup_req_params.dart';
-import 'package:auth/domain/usecases/signup.dart';
-import 'package:auth/presentation/auth/screens/signin.dart';
-import 'package:auth/presentation/home/screens/home.dart';
-import 'package:auth/service_locator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
