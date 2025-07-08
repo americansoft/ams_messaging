@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../widgets/background.dart';
 import '../widgets/sign_up_top_image.dart';
-import '../widgets/signup_form.dart';
+import '../widgets/register_form.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _SignupScreenWidget extends StatelessWidget {
             Spacer(),
             Expanded(
               flex: 8,
-              child: SignUpForm(),
+              child: RegisterForm(),
             ),
             Spacer(),
           ],

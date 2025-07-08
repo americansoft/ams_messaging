@@ -1,9 +1,8 @@
 import 'package:ams_messaging/config/constansts/app_colors.dart' show AppColors;
-import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/login_screen.dart';
-import '../pages/signup_screen.dart';
+import '../pages/register_screen.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
@@ -36,7 +35,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return const SignUpScreen();
+                  return const RegisterScreen();
                 },
               ),
             );

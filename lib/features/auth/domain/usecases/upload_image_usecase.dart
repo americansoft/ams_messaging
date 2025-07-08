@@ -4,7 +4,7 @@ import 'package:ams_messaging/features/auth/domain/repository/auth_repository.da
 import 'package:ams_messaging/service_locator.dart';
 
 
-class RegisterUseCase {
+class UploadImageUsecase{
 
   Future<HttpResult> call(AuthParams  param) async {
     return serviceLocator.get<AuthRepository>().register(param);

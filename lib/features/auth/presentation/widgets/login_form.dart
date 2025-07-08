@@ -8,7 +8,7 @@ import 'package:ams_messaging/features/auth/presentation/widgets/already_have_an
 import 'package:ams_messaging/service_locator.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/signup_screen.dart';
+import '../pages/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -25,8 +25,6 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailRegex = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
   bool _loading = false;
 
@@ -135,7 +133,7 @@ class _LoginFormState extends State<LoginForm> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return const SignUpScreen();
+                      return const RegisterScreen();
                     },
                   ),
                 );

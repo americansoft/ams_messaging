@@ -1,6 +1,7 @@
 import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:ams_messaging/config/constansts/app_routes.dart';
+import 'package:ams_messaging/core/network/http_results.dart';
 import 'package:ams_messaging/core/utils/validators.dart';
 import 'package:ams_messaging/features/auth/data/models/auth_params.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/register_usecase.dart';
@@ -10,16 +11,16 @@ import 'package:flutter/material.dart';
 import '../pages/login_screen.dart';
 import 'already_have_an_account_check.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({
     super.key,
   });
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _profilePictureController = TextEditingController();
@@ -36,51 +37,35 @@ class _SignUpFormState extends State<SignUpForm> {
       setState(() {
         _loading = true;
       });
-      try {
-  
-        await serviceLocator.get<RegisterUseCase>().call(
+
+      await serviceLocator.get<RegisterUseCase>().call(
           AuthParams(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
           ),
         ).then((res) async =>{
-
-        if (mounted) {
-            if (res == null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('User is empty')))
-            } else {
+          if(mounted){
+            if (res is ResultSuccess) {
               await Navigator.of(context).pushReplacementNamed(AppRoutes.profileSetup)
-            }
-      }
-
+              }
+          else if (res is ResultError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(
+              res.error?.response?.data["message"] ?? ""
+              )),
+          )
+        }
+        }
 
         });
-
-
-
-        if (!mounted) return;
         // Navigate to home screen
 
-      } on Exception catch (e){
-        if(mounted){
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(e.toString())),
-          );
-        }
-      }
-      catch (error) {
-
-        if(!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-           SnackBar(content: Text(error.toString())),
-        );
-      }
+      } 
       setState(() {
         _loading = false;
       });
     }
-  }
+  
 
 
   String? _emailInputValidator(String? value) {

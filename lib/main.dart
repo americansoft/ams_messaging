@@ -1,6 +1,6 @@
 import 'package:ams_messaging/config/app_theme.dart';
-import 'package:ams_messaging/features/auth/presentation/pages/signup_screen.dart';
-import 'package:ams_messaging/messages_list.dart';
+import 'package:ams_messaging/core/routes/route_generator.dart';
+import 'package:ams_messaging/features/auth/presentation/pages/register_screen.dart';
 import 'package:ams_messaging/service_locator.dart';
 import 'package:device_preview/device_preview.dart';
 
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme().light,
       darkTheme: AppTheme().dark,
       themeMode: ThemeMode.system,
-      home: SignUpScreen(),
+      home: RegisterScreen(),
 
     );
   }

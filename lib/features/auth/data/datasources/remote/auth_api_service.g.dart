@@ -10,7 +10,7 @@ part of 'auth_api_service.dart';
 
 class _AuthApiService implements AuthApiService {
   _AuthApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://192.168.1.63:3000/';
+    baseUrl ??= 'http://192.168.1.58:3000/';
   }
 
   final Dio _dio;
@@ -108,11 +108,13 @@ class _AuthApiService implements AuthApiService {
 
   @override
   Future<HttpResponse<dynamic>> updateUsername(
-    Map<String, dynamic> body,
+    Map<String, String> body,
+    String token,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(body);
     final _options = _setStreamType<HttpResponse<dynamic>>(

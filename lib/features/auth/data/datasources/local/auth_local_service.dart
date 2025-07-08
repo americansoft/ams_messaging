@@ -38,6 +38,6 @@ class AuthLocalServiceImpl extends AuthLocalService {
   @override
   Future<void> saveToken(String token) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('token', token);
+    await sharedPreferences.setString('token', 'Bearer $token');
   }
 }

@@ -22,6 +22,9 @@ abstract class AuthApiService {
   @Header("Authorization") String token,
 );
   @PUT(HttpConstants.updateUsernamePath)
-  Future<HttpResponse> updateUsername(@Body() Map<String, dynamic> body);
-  
+  Future<HttpResponse> updateUsername(
+    @Body() Map<String, String> body,
+    @Header("Authorization") String token
+    );
+
 }   

@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:ams_messaging/features/auth/domain/usecases/update_username_usecase.dart';
+import 'package:ams_messaging/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,7 +17,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   final TextEditingController _nameController = TextEditingController();
   File? _imageFile;
 
-  final authProvider = AuthProvider();
+  final usernameApi = serviceLocator.get<UpdateUsernameUsecase>();
 
   Future<void> _pickImage() async {
     final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -26,11 +28,10 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     }
   }
   Future <void> _addUsernameAndImage(String username) async {
-    authProvider.updateUserName(username: username);
-    if(_imageFile != null){
-        authProvider.uploadProfilePicture(image: _imageFile!);
-      }
-    Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    await usernameApi.call(username);
+    if(mounted){
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    }
   }
 
   void _submitProfile() {

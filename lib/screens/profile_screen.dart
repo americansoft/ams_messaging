@@ -19,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.currentUser;
+    final user = "";
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
@@ -71,8 +71,6 @@ class __SignOutButtonState extends State<_SignOutButton> {
 
     try {
       final nav = Navigator.of(context);
-      await StreamChatCore.of(context).client.disconnectUser();
-      await firebase.FirebaseAuth.instance.signOut();
 
       nav.pushReplacement(SplashScreen.route);
     } on Exception catch (e, _) {
