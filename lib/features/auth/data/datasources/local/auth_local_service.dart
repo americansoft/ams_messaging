@@ -1,3 +1,4 @@
+import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AuthLocalService {
@@ -10,11 +11,14 @@ abstract class AuthLocalService {
 
 class AuthLocalServiceImpl extends AuthLocalService {
 
+  final _tokenKey = AppConstants.prefsToken;
+  Future<SharedPreferences> get _prefs async => await SharedPreferences.getInstance();
+
 
   @override
   Future<bool> isLoggedIn() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.getString('token');
+    final  sharedPreferences = await _prefs;
+    var token = sharedPreferences.getString(_tokenKey);
     if (token  == null ){
       return false;
     } else {
@@ -24,20 +28,20 @@ class AuthLocalServiceImpl extends AuthLocalService {
   
   @override
   Future<bool> logout() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final  sharedPreferences = await _prefs;
     sharedPreferences.clear();
     return true;
   }
 
     @override
     Future<String?> getToken() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getString('token');
+    final  sharedPreferences = await _prefs;
+    return sharedPreferences.getString(_tokenKey);
   }
 
   @override
   Future<void> saveToken(String token) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString('token', 'Bearer $token');
+    final  sharedPreferences = await _prefs;
+    await sharedPreferences.setString(_tokenKey, 'Bearer $token');
   }
 }

@@ -1,6 +1,6 @@
 import 'package:ams_messaging/core/network/http_results.dart';
 import 'package:ams_messaging/features/auth/domain/repository/auth_repository.dart';
-import 'package:ams_messaging/service_locator.dart';
+import 'package:ams_messaging/core/service_locator/service_locator.dart';
 
 
 class UpdateUsernameUsecase {

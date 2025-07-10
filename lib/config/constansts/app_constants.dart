@@ -16,6 +16,7 @@ class AppConstants {
   // SharedPreferences Keys
   static const String prefsUserId = 'prefs_user_id';
   static const String prefsIsLoggedIn = 'prefs_logged_in';
+  static const String prefsToken = 'token';
 
   // UI Spacing
   static const double defaultPadding = 16.0;

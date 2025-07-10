@@ -37,11 +37,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             Hero(
               tag: 'hero-profile-picture',
-              child: Avatar.large(url: user?.image),
+              child: Avatar.large(url: user.image),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(user?.name ?? 'No name'),
+              child: Text(user.name ?? 'No name'),
             ),
             const Divider(),
             const _SignOutButton(),

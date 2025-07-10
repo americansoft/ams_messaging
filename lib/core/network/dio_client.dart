@@ -48,7 +48,7 @@ class DioClient {
       dynamic > ? queryParameters,
       Options ? options,
       ProgressCallback ? onSendProgress,
-      ProgressCallback ? onReceiveProgress,
+      ProgressCallback ? onReceiveProgress
     }) async {
     try {
       final Response response = await _dio.post(

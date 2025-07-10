@@ -1,10 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:ams_messaging/features/auth/domain/usecases/update_username_usecase.dart';
-import 'package:ams_messaging/service_locator.dart';
+import 'package:ams_messaging/features/auth/domain/usecases/upload_image_usecase.dart';
+import 'package:ams_messaging/core/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../config/constansts/app_routes.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({super.key});
@@ -18,6 +19,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   File? _imageFile;
 
   final usernameApi = serviceLocator.get<UpdateUsernameUsecase>();
+  final imageProfileApi = serviceLocator.get<UploadImageUsecase>();
 
   Future<void> _pickImage() async {
     final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -28,10 +30,15 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
     }
   }
   Future <void> _addUsernameAndImage(String username) async {
-    await usernameApi.call(username);
-    if(mounted){
-      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    if(_imageFile != null){
+      await usernameApi.call(username);
+      await imageProfileApi.call(_imageFile!);
+      log(_imageFile!.path);
     }
+    
+    // if(mounted){
+    //   Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    // }
   }
 
   void _submitProfile() {

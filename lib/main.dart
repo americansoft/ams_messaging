@@ -1,7 +1,7 @@
 import 'package:ams_messaging/config/app_theme.dart';
 import 'package:ams_messaging/core/routes/route_generator.dart';
-import 'package:ams_messaging/features/auth/presentation/pages/register_screen.dart';
-import 'package:ams_messaging/service_locator.dart';
+import 'package:ams_messaging/core/service_locator/service_locator.dart';
+import 'package:ams_messaging/features/friendship/presentation/pages/search_screen.dart';
 import 'package:device_preview/device_preview.dart';
 
 import 'package:flutter/material.dart';
@@ -38,13 +38,13 @@ class MyApp extends StatelessWidget {
         Locale('ar'),
       ],
       title: 'Ams Messaging',
-      //initialRoute: '/',
-      //onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
       debugShowCheckedModeBanner: false,
       theme: AppTheme().light,
       darkTheme: AppTheme().dark,
       themeMode: ThemeMode.system,
-      home: RegisterScreen(),
+      home: SearchScreen(),
 
     );
   }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_api_service.dart';
+part of 'friendship_api_service.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'auth_api_service.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _AuthApiService implements AuthApiService {
-  _AuthApiService(this._dio, {this.baseUrl, this.errorLogger}) {
+class _FriendshipApiService implements FriendshipApiService {
+  _FriendshipApiService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'http://192.168.1.58:3000/';
   }
 
@@ -20,26 +20,30 @@ class _AuthApiService implements AuthApiService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<HttpResponse<AuthModel>> register(AuthParams params) async {
+  Future<HttpResponse<FriendRequestModel>> sendRequest(
+    String token,
+    Map<String, int> receiverId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(params.toJson());
-    final _options = _setStreamType<HttpResponse<AuthModel>>(
+    _data.addAll(receiverId);
+    final _options = _setStreamType<HttpResponse<FriendRequestModel>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'user/auth/register',
+            'friendship/request',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthModel _value;
+    late FriendRequestModel _value;
     try {
-      _value = AuthModel.fromJson(_result.data!);
+      _value = FriendRequestModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -49,26 +53,30 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<HttpResponse<AuthModel>> login(AuthParams params) async {
+  Future<HttpResponse<FriendRequestModel>> acceptRequest(
+    String token,
+    Map<String, int> requestId,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    _data.addAll(params.toJson());
-    final _options = _setStreamType<HttpResponse<AuthModel>>(
+    _data.addAll(requestId);
+    final _options = _setStreamType<HttpResponse<FriendRequestModel>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'user/auth/login',
+            'friendship/accept',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthModel _value;
+    late FriendRequestModel _value;
     try {
-      _value = AuthModel.fromJson(_result.data!);
+      _value = FriendRequestModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -78,26 +86,100 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<HttpResponse<AuthModel>> getCurrentUser(String token) async {
+  Future<HttpResponse<FriendRequestModel>> declineRequest(
+    String token,
+    Map<String, int> requestId,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(requestId);
+    final _options = _setStreamType<HttpResponse<FriendRequestModel>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'friendship/decline',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late FriendRequestModel _value;
+    try {
+      _value = FriendRequestModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<UserPreviewModel>>> searchUsers(
+    String token,
+    Map<String, String> query,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Authorization': token};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(query);
+    final _options = _setStreamType<HttpResponse<List<UserPreviewModel>>>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'friendship/search',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<UserPreviewModel> _value;
+    try {
+      _value = _result.data!
+          .map(
+            (dynamic i) => UserPreviewModel.fromJson(i as Map<String, dynamic>),
+          )
+          .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    final httpResponse = HttpResponse(_value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<List<UserPreviewModel>>> getFriends(String token) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<AuthModel>>(
+    final _options = _setStreamType<HttpResponse<List<UserPreviewModel>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'user/auth/current-user',
+            'friendship/friends',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AuthModel _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<UserPreviewModel> _value;
     try {
-      _value = AuthModel.fromJson(_result.data!);
+      _value = _result.data!
+          .map(
+            (dynamic i) => UserPreviewModel.fromJson(i as Map<String, dynamic>),
+          )
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -107,74 +189,33 @@ class _AuthApiService implements AuthApiService {
   }
 
   @override
-  Future<HttpResponse<dynamic>> updateUsername(
-    Map<String, String> body,
+  Future<HttpResponse<List<FriendRequestModel>>> getPendingRequests(
     String token,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'Authorization': token};
     _headers.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    final _options = _setStreamType<HttpResponse<dynamic>>(
-      Options(method: 'PUT', headers: _headers, extra: _extra)
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<HttpResponse<List<FriendRequestModel>>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'user',
+            'friendship/requests',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch(_options);
-    final _value = _result.data;
-    final httpResponse = HttpResponse(_value, _result);
-    return httpResponse;
-  }
-
-  @override
-  Future<HttpResponse<User>> uploadProfileImage(
-    File image,
-    String token,
-    String mediaType,
-  ) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{
-      r'Authorization': token,
-      r'Content-Type': mediaType,
-    };
-    _headers.removeWhere((k, v) => v == null);
-    final _data = FormData();
-    _data.files.add(
-      MapEntry(
-        'profile-image',
-        MultipartFile.fromFileSync(
-          image.path,
-          filename: image.path.split(Platform.pathSeparator).last,
-        ),
-      ),
-    );
-    final _options = _setStreamType<HttpResponse<User>>(
-      Options(
-            method: 'POST',
-            headers: _headers,
-            extra: _extra,
-            contentType: 'multipart/form-data',
-          )
-          .compose(
-            _dio.options,
-            'user/upload-profile-image',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late User _value;
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<FriendRequestModel> _value;
     try {
-      _value = User.fromJson(_result.data!);
+      _value = _result.data!
+          .map(
+            (dynamic i) =>
+                FriendRequestModel.fromJson(i as Map<String, dynamic>),
+          )
+          .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

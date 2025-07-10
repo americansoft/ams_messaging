@@ -2,10 +2,10 @@ import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/config/constansts/app_constants.dart';
 import 'package:ams_messaging/config/constansts/app_routes.dart';
 import 'package:ams_messaging/core/network/http_results.dart';
-import 'package:ams_messaging/core/utils/validators.dart';
+import 'package:ams_messaging/config/utils/validators.dart';
 import 'package:ams_messaging/features/auth/data/models/auth_params.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/register_usecase.dart';
-import 'package:ams_messaging/service_locator.dart';
+import 'package:ams_messaging/core/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/login_screen.dart';
