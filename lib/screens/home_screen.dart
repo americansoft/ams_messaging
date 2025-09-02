@@ -1,15 +1,14 @@
 import 'package:ams_messaging/config/constansts/app_colors.dart';
 import 'package:ams_messaging/features/chat/presentation/pages/chat_screen.dart';
-import 'package:ams_messaging/screens/profile_screen.dart';
+import 'package:ams_messaging/screens/nav_pages/calls_page.dart';
+import 'package:ams_messaging/screens/nav_pages/notifications_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/avatar.dart';
 import '../widgets/glowing_action_button.dart';
 import '../widgets/icon_buttons.dart';
-import 'nav_pages/calls_page.dart';
 import 'nav_pages/contacts_page.dart';
-import 'nav_pages/notifications_page.dart';
 
 class HomeScreen extends StatefulWidget {
   static Route get route => MaterialPageRoute(
@@ -72,9 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Hero(
               tag: 'hero-profile-picture',
               child: Avatar.small(
-                url: context.currentUser!.image,
+                url: "https://images.unsplash.com/photo-1575936123452-b67c3203c357?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
                 onTap: () {
-                  Navigator.of(context).push(ProfileScreen.route);
+                 // Navigator.of(context).push(ProfileScreen.route);
                 },
               ),
             ),

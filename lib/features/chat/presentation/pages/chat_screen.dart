@@ -15,19 +15,25 @@
 // import 'components/message_list.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/chat_bloc.dart';
+import '../../domain/usecases/get_conversations_usecase.dart';
+import '../../domain/usecases/get_messages_usecase.dart';
+import '../../domain/usecases/send_message_usecase.dart';
+import 'chat_list_screen.dart';
 
 class ChatListPage extends StatelessWidget {
   const ChatListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chat Screen'),
+    return BlocProvider(
+      create: (context) => ChatBloc(
+        getConversationsUseCase: context.read<GetConversationsUseCase>(),
+        getMessagesUseCase: context.read<GetMessagesUseCase>(),
+        sendMessageUseCase: context.read<SendMessageUseCase>(),
       ),
-      body: Center(
-        child: Text('Chat content goes here'),
-      ),
+      child: const ChatListScreen(),
     );
   }
 }
