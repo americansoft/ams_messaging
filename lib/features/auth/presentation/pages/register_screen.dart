@@ -35,9 +35,7 @@ class _SignupScreenWidget extends StatelessWidget {
             ),
             Spacer(),
           ],
-        ),
-        // const SocialSignUp()
-      ],
+        ),      ],
     );
   }
 }

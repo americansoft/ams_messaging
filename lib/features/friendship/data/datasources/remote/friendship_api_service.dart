@@ -1,5 +1,6 @@
 
 import 'package:ams_messaging/config/constansts/http_constansts.dart';
+import 'package:ams_messaging/features/auth/data/models/auth_model.dart';
 import 'package:ams_messaging/features/friendship/data/models/friend_request_model.dart';
 import 'package:ams_messaging/features/friendship/data/models/user_preview_model.dart';
 import 'package:dio/dio.dart';
@@ -28,7 +29,7 @@ abstract class FriendshipApiService {
     @Body() Map<String, int> requestId);
 
   @POST(ApiUrls.searchUsers)
-  Future<HttpResponse<List<UserPreviewModel>>> searchUsers(
+  Future<HttpResponse<List<User>>> searchUsers(
     @Header("Authorization") String token,
     @Body() Map<String, String> query);
 

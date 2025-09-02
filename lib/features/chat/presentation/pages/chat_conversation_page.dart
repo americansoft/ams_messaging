@@ -1,9 +1,10 @@
+import 'package:ams_messaging/features/chat/presentation/widgets/messgae_input.dart';
+import 'package:ams_messaging/features/chat/presentation/widgets/chat_video_bubble.dart';
+import 'package:ams_messaging/features/chat/presentation/widgets/dynamic_voice_message.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:video_player/video_player.dart';
 
-import 'chat_screen/componants/chat_video_bubble.dart';
-import 'chat_screen/componants/dynamic_voice_message.dart';
 
 class ChatConversationPage extends StatelessWidget {
   const ChatConversationPage({super.key});
@@ -49,45 +50,15 @@ class ChatConversationPage extends StatelessWidget {
               const _ChatBubble('السفاره قريبه منك مش بعيده مش هتخسر حاجه', time: '10:27 am', isSender: false),
             ],
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              color: Colors.white,
-              child: Row(
-                children: [
-                  IconButton(icon: const Icon(Icons.emoji_emotions_outlined), color: Colors.grey, onPressed: () {}),
-                  Expanded(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: const TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Message',
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                  IconButton(icon: const Icon(Icons.attach_file), color: Colors.grey, onPressed: () {}),
-                  IconButton(icon: const Icon(Icons.camera_alt), color: Colors.grey, onPressed: () {}),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: Color(0xff075e54),
-                    child: const Icon(Icons.mic, color: Colors.white),
-                  )
-                ],
-              ),
-            ),
-          )
+          
+          MessageInput()
         ],
       ),
     );
   }
 }
+
+
 
 class _ChatBubble extends StatelessWidget {
   final String text;

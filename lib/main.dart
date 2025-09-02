@@ -1,16 +1,13 @@
 import 'package:ams_messaging/config/app_theme.dart';
 import 'package:ams_messaging/core/routes/route_generator.dart';
 import 'package:ams_messaging/core/service_locator/service_locator.dart';
-import 'package:ams_messaging/features/friendship/presentation/pages/search_screen.dart';
+import 'package:ams_messaging/features/chat/presentation/pages/chat_conversation_page.dart';
 import 'package:device_preview/device_preview.dart';
 
 import 'package:flutter/material.dart';
 
 
-Future<void> main()  async{
-  WidgetsFlutterBinding.ensureInitialized();
-
-
+void main(){
   setupServiceLocator();
   runApp(
    MyApp(
@@ -44,7 +41,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme().light,
       darkTheme: AppTheme().dark,
       themeMode: ThemeMode.system,
-      home: SearchScreen(),
+      home: ChatConversationPage(),
+      
+
 
     );
   }

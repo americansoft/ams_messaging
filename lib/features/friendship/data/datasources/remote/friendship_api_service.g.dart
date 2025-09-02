@@ -119,7 +119,7 @@ class _FriendshipApiService implements FriendshipApiService {
   }
 
   @override
-  Future<HttpResponse<List<UserPreviewModel>>> searchUsers(
+  Future<HttpResponse<List<User>>> searchUsers(
     String token,
     Map<String, String> query,
   ) async {
@@ -129,7 +129,7 @@ class _FriendshipApiService implements FriendshipApiService {
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(query);
-    final _options = _setStreamType<HttpResponse<List<UserPreviewModel>>>(
+    final _options = _setStreamType<HttpResponse<List<User>>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -140,12 +140,10 @@ class _FriendshipApiService implements FriendshipApiService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<UserPreviewModel> _value;
+    late List<User> _value;
     try {
       _value = _result.data!
-          .map(
-            (dynamic i) => UserPreviewModel.fromJson(i as Map<String, dynamic>),
-          )
+          .map((dynamic i) => User.fromJson(i as Map<String, dynamic>))
           .toList();
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

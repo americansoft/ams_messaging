@@ -1,13 +1,34 @@
-part of 'auth_bloc_bloc.dart';
+part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthBlocState {}
-
-
-final class AuthBlocLoading extends AuthBlocState {}
-
-final class AuthBlocAuthenticated extends AuthBlocState {
+abstract class AuthBlocState extends Equatable { 
   final UserEntity? userEntity;
-  AuthBlocAuthenticated(this.userEntity);
+  final DioException? error;
+  
+
+
+  const AuthBlocState({this.userEntity,this.error});
+
+  @override
+  List<Object?> get props => [userEntity,error];
+
 }
-final class AuthBlocUnauthenticated extends AuthBlocState {}
+
+class AuthInitial extends AuthBlocState {
+  const AuthInitial();
+}
+
+final class AuthLoading extends AuthBlocState  {
+  const AuthLoading();
+}
+
+final class AuthAuthenticated extends AuthBlocState {
+   const AuthAuthenticated(UserEntity userEntity):super(userEntity: userEntity);
+}
+final class AuthUnauthenticated  extends AuthBlocState {
+    const AuthUnauthenticated ();
+
+}
+class AuthFail extends AuthBlocState {
+  const AuthFail(DioException error):super(error: error);
+}

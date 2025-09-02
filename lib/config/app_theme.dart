@@ -18,7 +18,7 @@ class AppTheme {
   ThemeData get light => ThemeData(
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: AppColors.kPrimaryLightColor,
+      fillColor: AppColors.transparent,
       iconColor: AppColors.kPrimaryColor,
       prefixIconColor: AppColors.kPrimaryColor,
       contentPadding: EdgeInsets.symmetric(

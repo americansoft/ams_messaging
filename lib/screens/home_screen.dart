@@ -1,5 +1,5 @@
 import 'package:ams_messaging/config/constansts/app_colors.dart';
-import 'package:ams_messaging/screens/chat/chat_screen/chat_screen.dart';
+import 'package:ams_messaging/features/chat/presentation/pages/chat_screen.dart';
 import 'package:ams_messaging/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

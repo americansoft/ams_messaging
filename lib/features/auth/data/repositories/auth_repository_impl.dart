@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:ams_messaging/config/constansts/http_constansts.dart';
@@ -13,7 +12,6 @@ import 'package:ams_messaging/features/auth/domain/repository/auth_repository.da
 import 'package:ams_messaging/core/service_locator/service_locator.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -34,24 +32,30 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
     @override
-  Future<HttpResult>login(AuthParams params) async {
+  Future<HttpResult<AuthModel>>login(AuthParams params) async {
     try {
          final response  = await apiServer.login(params);
          String? token = response.data.data!.token;
-         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-         sharedPreferences.setString('token', token!);
+         localServer.saveToken(token!);
          return ResultSuccess(response.data);
-    } on DioException catch(e){
-      return ResultError(e);
+    } on DioException catch(error){
+      return ResultError(error);
     }
     
   }
   
   @override
-  Future<HttpResponse> getCurrentUser() async {
-    String? token = await localServer.getToken();
-    HttpResponse<AuthModel> response  = await serviceLocator<AuthApiService>().getCurrentUser(token!);
-    return response;
+  Future<HttpResult<AuthModel>> getCurrentUser() async {
+    try{
+      String? token = await localServer.getToken();
+      final response  = await serviceLocator<AuthApiService>().getCurrentUser(token!);
+      return ResultSuccess(response.data);
+
+    } on DioException catch (error){
+      return ResultError(error);
+    }
+    
+    
   }
   
 

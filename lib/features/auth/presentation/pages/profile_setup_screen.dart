@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:ams_messaging/config/constansts/app_routes.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/update_username_usecase.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/upload_image_usecase.dart';
 import 'package:ams_messaging/core/service_locator/service_locator.dart';
@@ -36,9 +37,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       log(_imageFile!.path);
     }
     
-    // if(mounted){
-    //   Navigator.of(context).pushReplacementNamed(AppRoutes.home);
-    // }
+    if(mounted){
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    }
   }
 
   void _submitProfile() {

@@ -25,6 +25,7 @@ class AppColors {
   static const textHighlight = secondary;
   static const cardLight = Color(0xFFF9FAFE);
   static const cardDark = Color(0xFF303334);
+  static const transparent = Color(0x00000000);
 }
 
 

@@ -8,6 +8,7 @@ import 'package:ams_messaging/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/register_usecase.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/update_username_usecase.dart';
 import 'package:ams_messaging/features/auth/domain/usecases/upload_image_usecase.dart';
+import 'package:ams_messaging/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:dio/dio.dart';
 
 void initAuthSingletons(Dio dio){
@@ -43,5 +44,9 @@ void initAuthSingletons(Dio dio){
   );
   serviceLocator.registerSingleton<UpdateUsernameUsecase>(
     UpdateUsernameUsecase()
+  );
+
+  serviceLocator.registerFactory<AuthBloc>(
+    () => AuthBloc(serviceLocator())
   );
 }

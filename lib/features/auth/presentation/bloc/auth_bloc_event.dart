@@ -1,11 +1,15 @@
-part of 'auth_bloc_bloc.dart';
+part of 'auth_bloc.dart';
 
 @immutable
-sealed class AuthBlocEvent {}
+abstract class AuthBlocEvent {
+  final AuthParams? authParams;
+  const AuthBlocEvent({this.authParams});
+}
 
-final class AuthBlocLogoutEvent extends AuthBlocEvent {}
+final class LogoutEvent extends AuthBlocEvent {
+const LogoutEvent();
+}
 
-final class AuthBlocLoginEvent extends AuthBlocEvent {
-  final UserEntity userEntity;
-  AuthBlocLoginEvent(this.userEntity);
+final class LoginEvent extends AuthBlocEvent {
+  const LoginEvent(AuthParams authParams):super(authParams: authParams);
 }

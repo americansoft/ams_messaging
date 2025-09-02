@@ -120,7 +120,7 @@ class WaveformPainter extends CustomPainter {
     final width = size.width / samples.length;
 
     for (int i = 0; i < samples.length; i++) {
-      final normalized = samples[i] / 255.0; // تحويل القيمة 0-255 إلى 0.0-1.0
+      final normalized = samples[i] / 255.0;  
       final height = size.height * normalized;
       final x = i * width;
 

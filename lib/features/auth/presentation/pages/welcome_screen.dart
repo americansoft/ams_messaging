@@ -6,9 +6,11 @@ import '../widgets/welcome_image.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
+    
     return const Background(
       child: SingleChildScrollView(
         child: SafeArea(

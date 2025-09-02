@@ -2,11 +2,11 @@ import 'package:ams_messaging/core/network/http_results.dart';
 
 abstract class FriendshipRepository {
   
-  Future<HttpResult> sendRequest();
-  Future<HttpResult> acceptRequest();
-  Future<HttpResult> declineRequest();
+  Future<HttpResult> sendRequest(int receiverId);
+  Future<HttpResult> acceptRequest(int requestId);
+  Future<HttpResult> declineRequest(int requestId);
   Future<HttpResult> getFriendsList();
-  Future<HttpResult> searchUsers();
+  Future<HttpResult> searchUsers(String query);
   Future<HttpResult> getPendingRequest();
   
 }

@@ -11,7 +11,7 @@ import 'package:ams_messaging/features/friendship/domain/usecases/search_users_u
 import 'package:ams_messaging/features/friendship/domain/usecases/send_request_usecaes.dart';
 import 'package:dio/dio.dart';
 
-void initFriendshipingletons(Dio dio){
+Future<void> initFriendshipingletons(Dio dio) async{
 
   
   // Services
